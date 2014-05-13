@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 
+using Microsoft.Practices.ServiceLocation;
+
 using Happy.Utils.Reflection;
-using Happy.Factory;
 
 namespace Happy.Event.Internal
 {
     internal sealed class DefaultEventPublisher : IEventPublisher
     {
-        private IFactory _factory = new DefaultFactory();
+        private IServiceLocator _locator = ServiceLocator.Current;
 
         public void Publish<TEvent>(TEvent @event)
         {
@@ -23,18 +24,18 @@ namespace Happy.Event.Internal
             context.Next();
         }
 
-        public void SetFactory(Factory.IFactory factory)
+        public void SetLocator(IServiceLocator locator)
         {
-            Check.MustNotNull(factory, "factory");
+            Check.MustNotNull(locator, "locator");
 
-            _factory = factory;
+            _locator = locator;
         }
 
         private EventPublishContext CreateEventPublishContext<TEvent>(
                                                                 TEvent @event)
         {
-            var subscribers = _factory.CreateInstances<IEventSubscriber<TEvent>>();
-
+            var subscribers = _locator
+                                    .GetAllInstances<IEventSubscriber<TEvent>>();
             var interceptors = @event.GetType()
                                      .GetAttributes<EventInterceptorAttribute>();
 
@@ -47,9 +48,21 @@ namespace Happy.Event.Internal
 
                 foreach (var subscriber in subscribers)
                 {
-                    subscriber.Handle(@event);
+                    this.ScheduleSubscriber<TEvent>(@event, subscriber);
                 }
             });
+        }
+
+        private void ScheduleSubscriber<TEvent>(TEvent @event,
+                                            IEventSubscriber<TEvent> subscriber)
+        {
+            var interceptors = subscriber.GetType()
+                                    .GetAttributes<EventInterceptorAttribute>();
+            var context = new EventPublishContext(@event, interceptors, () =>
+            {
+                subscriber.Handle(@event);
+            });
+            context.Next();
         }
     }
 }

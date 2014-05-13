@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 using NUnit.Framework;
+using Microsoft.Practices.ServiceLocation;
 
+using Happy.ServiceLocation;
 using Happy.Event.Test.Stub.Simple;
 
 namespace Happy.Event.Test
@@ -16,6 +18,8 @@ namespace Happy.Event.Test
         [Test]
         public void Publish_Simple_Test()
         {
+            ServiceLocator.SetLocatorProvider(() => new AppDomainServiceLocator());
+
             var testEvent = new TestEvent();
 
             EventPublisher.Current.Publish(testEvent);

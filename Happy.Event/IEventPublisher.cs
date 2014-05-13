@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Happy.Factory;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Happy.Event
 {
@@ -19,8 +19,8 @@ namespace Happy.Event
         void Publish<TEvent>(TEvent @event);
 
         /// <summary>
-        /// 设置<paramref name="factory"/>。
+        /// 设置<paramref name="locator"/>。
         /// </summary>
-        void SetFactory(IFactory factory);
+        void SetLocator(IServiceLocator locator);
     }
 }
