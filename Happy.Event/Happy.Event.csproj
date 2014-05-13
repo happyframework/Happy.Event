@@ -54,8 +54,8 @@
     <Compile Include="IEventPublishContext.cs" />
     <Compile Include="IEventSubscriber.cs" />
     <Compile Include="IEventPublisher.cs" />
-    <Compile Include="Internal\EventPublishContext.cs" />
-    <Compile Include="Internal\DefaultEventPublisher.cs" />
+    <Compile Include="Impls\EventPublishContext.cs" />
+    <Compile Include="Impls\DefaultEventPublisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

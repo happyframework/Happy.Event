@@ -9,7 +9,7 @@ using Microsoft.Practices.ServiceLocation;
 
 using Happy.Utils.Reflection;
 
-namespace Happy.Event.Internal
+namespace Happy.Event.Impls
 {
     internal sealed class DefaultEventPublisher : IEventPublisher
     {

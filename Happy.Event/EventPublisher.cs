@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Happy.Event.Internal;
+using Happy.Event.Impls;
 
 namespace Happy.Event
 {
