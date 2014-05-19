@@ -21,7 +21,7 @@ namespace Happy.Event.Impls
 
             var context = this.CreateEventPublishContext(@event);
 
-            context.Next();
+            context.Proceed();
         }
 
         public void SetLocator(IServiceLocator locator)
@@ -62,7 +62,7 @@ namespace Happy.Event.Impls
             {
                 subscriber.Handle(@event);
             });
-            context.Next();
+            context.Proceed();
         }
     }
 }

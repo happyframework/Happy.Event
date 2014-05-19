@@ -20,6 +20,6 @@ namespace Happy.Event
         /// 执行下一个<see cref="EventInterceptorAttribute"/>，如果已经是最后一个，就会
         /// 执行所有的<see cref="IEventSubscriber{TEvent}"/>。
         /// </summary>
-        void Next();
+        void Proceed();
     }
 }

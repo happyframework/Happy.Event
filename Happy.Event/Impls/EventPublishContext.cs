@@ -27,7 +27,7 @@ namespace Happy.Event.Impls
 
         public object Event { get; private set; }
 
-        public void Next()
+        public void Proceed()
         {
             _currentInterceptorIndex++;
             if (_currentInterceptorIndex < _interceptors.Count)

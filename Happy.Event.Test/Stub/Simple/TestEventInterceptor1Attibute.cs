@@ -16,7 +16,7 @@ namespace Happy.Event.Test.Stub.Simple
         public override void Intercept(IEventPublishContext context)
         {
             (context.Event as TestEvent).Output += ("Before:TestEventInterceptor1Attibute");
-            context.Next();
+            context.Proceed();
             (context.Event as TestEvent).Output += ("After:TestEventInterceptor1Attibute");
         }
     }
