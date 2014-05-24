@@ -13,7 +13,17 @@ namespace Happy.Event.Impls
 {
     internal sealed class DefaultEventPublisher : IEventPublisher
     {
-        private IServiceLocator _locator = ServiceLocator.Current;
+        private Lazy<IServiceLocator> _locator = new Lazy<IServiceLocator>(() =>
+                                                                ServiceLocator.Current);
+
+        public DefaultEventPublisher() { }
+
+        public DefaultEventPublisher(IServiceLocator locator)
+        {
+            Check.MustNotNull(locator, "locator");
+
+            _locator = new Lazy<IServiceLocator>(() => locator);
+        }
 
         public void Publish<TEvent>(TEvent @event)
         {
@@ -24,18 +34,11 @@ namespace Happy.Event.Impls
             context.Proceed();
         }
 
-        public void SetLocator(IServiceLocator locator)
-        {
-            Check.MustNotNull(locator, "locator");
-
-            _locator = locator;
-        }
-
         private EventPublishContext CreateEventPublishContext<TEvent>(
                                                                 TEvent @event)
         {
-            var subscribers = _locator
-                                    .GetAllInstances<IEventSubscriber<TEvent>>();
+            var subscribers = _locator.Value
+                                      .GetAllInstances<IEventSubscriber<TEvent>>();
             var interceptors = @event.GetType()
                                      .GetAttributes<EventInterceptorAttribute>();
 
