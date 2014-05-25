@@ -13,7 +13,7 @@ namespace Happy.Event.Impls
 {
     internal sealed class DefaultEventPublisher : IEventPublisher
     {
-        private Lazy<IServiceLocator> _locator = new Lazy<IServiceLocator>(() =>
+        private readonly Lazy<IServiceLocator> _locator = new Lazy<IServiceLocator>(() =>
                                                                 ServiceLocator.Current);
 
         public DefaultEventPublisher() { }
