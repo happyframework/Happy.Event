@@ -13,7 +13,7 @@ namespace Happy.Event
     /// </summary>
     public static class EventPublisher
     {
-        private static readonly DefaultEventPublisher _DefaultEventPublisher
+        private static readonly DefaultEventPublisher _Current
             = new DefaultEventPublisher();
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace Happy.Event
         /// </summary>
         public static IEventPublisher Current
         {
-            get { return _DefaultEventPublisher; }
+            get { return _Current; }
         }
     }
 }
