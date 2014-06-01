@@ -16,29 +16,12 @@ namespace Happy.Event
         private static readonly DefaultEventPublisher _DefaultEventPublisher
             = new DefaultEventPublisher();
 
-        private static EventPublisherProvider _CurrentProvider = GetDefaultEventPublisher;
-
         /// <summary>
         /// 当前应用程序正在使用的事件发布者。
         /// </summary>
         public static IEventPublisher Current
         {
-            get { return _CurrentProvider(); }
-        }
-
-        /// <summary>
-        /// 设置当前应用程序正在使用的事件发布者提供者。
-        /// </summary>
-        public static void SetProvider(EventPublisherProvider provider)
-        {
-            Check.MustNotNull(provider, "provider");
-
-            _CurrentProvider = provider;
-        }
-
-        private static IEventPublisher GetDefaultEventPublisher()
-        {
-            return _DefaultEventPublisher;
+            get { return _DefaultEventPublisher; }
         }
     }
 }

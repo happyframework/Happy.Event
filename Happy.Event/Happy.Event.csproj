@@ -50,7 +50,6 @@
   <ItemGroup>
     <Compile Include="EventInterceptorAttribute.cs" />
     <Compile Include="EventPublisher.cs" />
-    <Compile Include="EventPublisherProvider.cs" />
     <Compile Include="IEventPublishContext.cs" />
     <Compile Include="IEventSubscriber.cs" />
     <Compile Include="IEventPublisher.cs" />
